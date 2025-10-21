@@ -30,9 +30,8 @@ The application is built on the robust **MERN Stack** for high performance and s
 
 ## 💡 Future Scope
 
-* Community-driven **Content Submission Platform**.
-* Dedicated **Mobile Application** development.
+* Add more **Cultural heraitages, festivals and traditions**.
 * Advanced **AI Recommendation System**.
 
 ---
-**Developed by [Your Name/Team Name]**
+**Developed by Arpan Charola & Krish Vyas**
