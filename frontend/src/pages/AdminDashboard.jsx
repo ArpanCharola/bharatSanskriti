@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 // A reusable form component for adding/editing data
 const DataForm = ({ type, formData, onFormChange, onFormSubmit, onClose }) => {
@@ -96,7 +97,7 @@ export default function AdminDashboard() {
         users: "api/admin/users",
       };
       const headers = activeTab === "users" ? { Authorization: `Bearer ${token}` } : {};
-      const res = await axios.get(`http://localhost:5000/${endpoints[activeTab]}`, { headers });
+      const res = await axios.get(`${API_BASE_URL}/${endpoints[activeTab]}`, { headers });
       setData(res.data);
     } catch (err) {
       setError("Failed to fetch data.");
@@ -110,7 +111,7 @@ export default function AdminDashboard() {
     if (!window.confirm(`Are you sure you want to delete this ${activeTab.slice(0, -1)}?`)) return;
     try {
       const endpoint = activeTab === "users" ? "api/admin/users" : `api/admin/${activeTab}`;
-      await axios.delete(`http://localhost:5000/${endpoint}/${id}`, {
+      await axios.delete(`${API_BASE_URL}/${endpoint}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchData(); // Refresh data after deletion
@@ -134,12 +135,12 @@ export default function AdminDashboard() {
     try {
       if (formData._id) { // Edit an existing item
         const endpoint = activeTab === "users" ? "api/admin/users" : `api/admin/${activeTab}`;
-        await axios.put(`http://localhost:5000/${endpoint}/${formData._id}`, formData, {
+        await axios.put(`${API_BASE_URL}/${endpoint}/${formData._id}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else { // Add a new item
         const endpoint = activeTab === "users" ? "api/admin/users" : `api/admin/${activeTab}`;
-        await axios.post(`http://localhost:5000/${endpoint}`, formData, {
+        await axios.post(`${API_BASE_URL}/${endpoint}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }

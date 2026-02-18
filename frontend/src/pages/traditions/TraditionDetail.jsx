@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useParams, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 
 export default function TraditionDetail() {
   const { slug } = useParams();
   const [tradition, setTradition] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // ✅ Initialize useNavigate
+  const navigate = useNavigate();
 
-  // Fetch one tradition by slug
   useEffect(() => {
     const fetchTradition = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/traditions/${slug}`);
+        const res = await fetch(`${API_BASE_URL}/api/traditions/${slug}`);
         if (!res.ok) throw new Error("Tradition not found");
         const data = await res.json();
         setTradition(data);
       } catch (err) {
-        console.error("❌ Error fetching tradition:", err);
+        console.error("Error fetching tradition:", err);
       } finally {
         setLoading(false);
       }
@@ -29,16 +29,14 @@ export default function TraditionDetail() {
 
   return (
     <div className="px-8 lg:px-16 py-12 bg-gray-50 min-h-screen">
-      {/* ✅ Change Link to a button that navigates back */}
-      <button 
-        onClick={() => navigate(-1)} 
+      <button
+        onClick={() => navigate(-1)}
         className="text-accent hover:underline mb-6 block"
       >
-        ← Back to Traditions
+        Back to Traditions
       </button>
 
       <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-lg overflow-hidden">
-        {/* Left - Image */}
         <div className="md:w-2/5">
           <img
             src={tradition.media}
@@ -47,11 +45,8 @@ export default function TraditionDetail() {
           />
         </div>
 
-        {/* Right - Details */}
         <div className="md:w-3/5 p-6 flex flex-col">
-          <h1 className="text-4xl font-bold mb-4 text-primary">
-            {tradition.name}
-          </h1>
+          <h1 className="text-4xl font-bold mb-4 text-primary">{tradition.name}</h1>
           <p className="text-gray-600 mb-2">
             <strong>Origin:</strong> {tradition.origin}
           </p>
@@ -60,7 +55,7 @@ export default function TraditionDetail() {
           </p>
           <p className="text-gray-700 mb-4">{tradition.culturalContext}</p>
           <p className="text-gray-700 mb-4">{tradition.description}</p>
-          
+
           {tradition.learnMoreLink && (
             <a
               href={tradition.learnMoreLink}
@@ -68,7 +63,7 @@ export default function TraditionDetail() {
               rel="noopener noreferrer"
               className="text-accent font-semibold hover:underline"
             >
-              Learn more →
+              Learn more
             </a>
           )}
         </div>

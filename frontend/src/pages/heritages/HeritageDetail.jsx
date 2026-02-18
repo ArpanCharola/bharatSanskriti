@@ -1,6 +1,7 @@
 // src/pages/HeritageDetail.jsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 
 export default function HeritageDetail() {
   const { slug } = useParams();
@@ -11,7 +12,7 @@ export default function HeritageDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/heritages/${slug}`);
+        const res = await fetch(`${API_BASE_URL}/api/heritages/${slug}`);
         if (!res.ok) throw new Error("Not found");
         setHeritage(await res.json());
       } catch (e) {

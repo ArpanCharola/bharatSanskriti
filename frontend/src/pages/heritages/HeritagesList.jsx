@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 
 export default function HeritagesList() {
   const [heritages, setHeritages] = useState([]);
@@ -21,7 +22,7 @@ export default function HeritagesList() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/heritages");
+        const res = await fetch(`${API_BASE_URL}/api/heritages`);
         const data = await res.json();
         setHeritages(Array.isArray(data) ? data : []);
       } catch (e) {

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 export default function Signup() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -15,10 +16,10 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", form);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, form);
       setMessage(res.data.message);
-      // ✅ Redirect to login page after successful registration
-      setTimeout(() => navigate("/login"), 1500); 
+      // Redirect to login page after successful registration
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
       const errorMessage = err.response?.data?.message || "Signup failed. Please try again.";
       setMessage(errorMessage);

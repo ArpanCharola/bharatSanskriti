@@ -3,12 +3,11 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import { verifyToken } from "../middleware/authMiddleware.js";
-import { isAdmin } from "../middleware/authMiddleware.js"; // ✅ Import isAdmin
+import { verifyToken, isAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// 🔹 Signup
+// Signup
 router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -29,12 +28,12 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    console.error("❌ Signup error:", err);
+    console.error("Signup error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-// 🔹 Login
+// Login
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -56,15 +55,15 @@ router.post("/login", async (req, res) => {
 
     res.json({ message: "Login successful", token });
   } catch (err) {
-    console.error("❌ Login error:", err);
+    console.error("Login error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-// 🔹 Protected route → Profile
+// Protected route: Profile
 router.get("/profile", verifyToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password"); // exclude password
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
   } catch (err) {
@@ -72,42 +71,46 @@ router.get("/profile", verifyToken, async (req, res) => {
   }
 });
 
-// 🔹 Admin-only route
+// Admin-only route
 router.get("/admin/dashboard", verifyToken, isAdmin, (req, res) => {
   res.json({
-    message: "Welcome Admin 🚀",
+    message: "Welcome Admin",
     user: req.user,
   });
 });
 
-// 🔹 Seed Admins (Temporary Route)
-router.post("/seed-admins", async (req, res) => {
+// Seed Admins (temporary route)
+router.post("/seed-admins", async (_req, res) => {
   try {
     const admins = [
-      { username: "arpan_admin", email: "arpan.admin@gmail.com", password: "arpan123", role: "admin" },
-      { username: "krish_admin", email: "krish.admin@gmail.com", password: "krish123", role: "admin" }
+      {
+        username: "arpan_admin",
+        email: "arpan.admin@gmail.com",
+        password: "arpan123",
+        role: "admin",
+      },
+      {
+        username: "krish_admin",
+        email: "krish.admin@gmail.com",
+        password: "krish123",
+        role: "admin",
+      },
     ];
 
-    for (let a of admins) {
-      const exists = await User.findOne({ email: a.email });
+    for (const admin of admins) {
+      const exists = await User.findOne({ email: admin.email });
       if (!exists) {
         const salt = await bcrypt.genSalt(10);
-        a.password = await bcrypt.hash(a.password, salt);
-        await User.create(a);
+        admin.password = await bcrypt.hash(admin.password, salt);
+        await User.create(admin);
       }
     }
 
-    res.json({ message: "✅ Admins seeded successfully" });
+    res.json({ message: "Admins seeded successfully" });
   } catch (err) {
-    console.error("❌ Seed admin error:", err);
+    console.error("Seed admin error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
-
-// 🔹 Example Admin-only route
-router.get("/admin/dashboard", verifyToken, isAdmin, (req, res) => {
-    res.json({ message: "✅ Welcome Admin 🚀", user: req.user });
-  });
-  
 
 export default router;

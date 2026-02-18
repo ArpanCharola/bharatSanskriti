@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { API_BASE_URL } from "../config/api";
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ export default function App() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -20,9 +21,9 @@ export default function App() {
 
       const data = await res.json();
       if (res.ok && data.token) {
-        // ✅ Save user + token in context and redirect
+        // Save user + token in context and redirect
         login({ username }, data.token);
-        navigate("/"); 
+        navigate("/");
       } else {
         alert(data.message);
       }
@@ -37,7 +38,7 @@ export default function App() {
       <div className="bg-white shadow-xl rounded-2xl w-full max-w-sm p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF9933]">Welcome Back</h2>
         <p className="text-gray-600 text-center mb-6">Sign in to your account</p>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"

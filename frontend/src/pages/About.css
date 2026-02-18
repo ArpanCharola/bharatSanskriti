@@ -1,0 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #0f1f2e;
+    --ink-soft: #425364;
+    --paper: #f7f3ed;
+    --paper-strong: #fffaf2;
+    --navy: #18364a;
+    --navy-deep: #0f2736;
+    --teal: #1c6a7a;
+    --gold: #d4a453;
+    --line: rgba(15, 31, 46, 0.12);
+}
+
+.about-page {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    background: radial-gradient(900px 500px at 85% -10%, rgba(212, 164, 83, 0.18), transparent 60%),
+        radial-gradient(700px 400px at -10% 20%, rgba(28, 106, 122, 0.14), transparent 60%),
+        var(--paper);
+}
+
+/* Mission Section */
+.mission-section {
+    width: 100%;
+    min-height: 52vh;
+    background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 55%, var(--teal) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(70px, 8vw, 110px) clamp(28px, 6vw, 70px);
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.16) 0, transparent 38%),
+        radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.12) 0, transparent 40%),
+        repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 14px);
+    opacity: 0.6;
+}
+
+.mission-section::after {
+    content: '';
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    right: -150px;
+    top: -160px;
+    background: radial-gradient(circle, rgba(212, 164, 83, 0.5) 0%, rgba(212, 164, 83, 0) 70%);
+    opacity: 0.85;
+}
+
+.mission-container {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.mission-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.38em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 14px;
+}
+
+.mission-title {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: clamp(2.3rem, 3.8vw, 3.6rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 18px;
+    letter-spacing: 0.6px;
+    text-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.mission-description {
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 920px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* Team Section */
+.team-section {
+    width: 100%;
+    padding: clamp(40px, 6vw, 70px) clamp(22px, 5vw, 60px);
+    background:
+        radial-gradient(700px 350px at 15% 0%, rgba(212, 164, 83, 0.14), transparent 60%),
+        radial-gradient(600px 300px at 90% 20%, rgba(28, 106, 122, 0.12), transparent 65%),
+        linear-gradient(180deg, #fbf8f3 0%, #f1ece4 100%);
+}
+
+.team-container {
+    width: 100%;
+}
+
+.team-title {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: clamp(22px, 3.2vw, 40px);
+    letter-spacing: 0.6px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(20px, 3vw, 40px);
+    width: 100%;
+}
+
+.team-card {
+    background: var(--paper-strong);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 40px rgba(15, 31, 46, 0.14);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    animation: fadeInUp 0.8s ease-out backwards;
+    animation-delay: var(--card-delay, 0s);
+    position: relative;
+}
+
+.team-card::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 0;
+    height: 4px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--gold), rgba(28, 106, 122, 0.85));
+    opacity: 0.9;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 60px rgba(15, 31, 46, 0.18);
+}
+
+.team-image-wrapper {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    background: #eef2f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.35s ease;
+    image-rendering: auto;
+}
+
+.team-image--arpan {
+    object-position: center;
+}
+
+.team-image--krish {
+    object-position: center;
+}
+
+.team-card:hover .team-image {
+    transform: scale(1.01);
+}
+
+.team-info {
+    padding: 14px 16px 18px;
+    text-align: center;
+    background: var(--paper-strong);
+}
+
+.team-name {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: 0.4px;
+}
+
+.team-role {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Social Links */
+.team-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.social-link {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5efe6;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--navy);
+    border: 1px solid var(--line);
+}
+
+.social-link:hover {
+    background: var(--teal);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(28, 106, 122, 0.3);
+}
+
+.social-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mission-container,
+    .team-title,
+    .team-card {
+        animation: none;
+    }
+
+    .team-card:hover,
+    .team-card:hover .team-image,
+    .social-link:hover {
+        transform: none;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .mission-section {
+        min-height: 45vh;
+    }
+
+    .mission-title {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+
+    .mission-description {
+        font-size: 1.05rem;
+    }
+
+    .team-section {
+        padding: 55px 32px;
+    }
+
+    .team-title {
+        margin-bottom: 30px;
+    }
+
+    .team-image-wrapper {
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-section {
+        padding: 60px 24px;
+        min-height: auto;
+    }
+
+    .mission-title {
+        font-size: 2.1rem;
+    }
+
+    .mission-description {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .mission-kicker {
+        letter-spacing: 0.28em;
+    }
+
+    .team-section {
+        padding: 50px 24px;
+    }
+
+    .team-title {
+        margin-bottom: 26px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .team-image-wrapper {
+        height: auto;
+        aspect-ratio: 3 / 2;
+    }
+
+    .team-info {
+        padding: 12px 14px 16px;
+    }
+
+    .team-name {
+        font-size: 1.1rem;
+    }
+
+    .team-role {
+        font-size: 0.7rem;
+    }
+
+    .social-link {
+        width: 30px;
+        height: 30px;
+    }
+
+    .social-icon {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mission-section {
+        padding: 50px 18px;
+    }
+
+    .mission-title {
+        font-size: 1.85rem;
+    }
+
+    .mission-description {
+        font-size: 0.95rem;
+    }
+
+    .team-section {
+        padding: 45px 18px;
+    }
+
+    .team-title {
+        font-size: 1.45rem;
+        margin-bottom: 22px;
+    }
+
+    .team-grid {
+        gap: 30px;
+    }
+
+    .team-image-wrapper {
+        height: auto;
+        padding: 8px;
+    }
+
+    .team-info {
+        padding: 10px 12px 14px;
+    }
+
+    .team-name {
+        font-size: 1.02rem;
+    }
+
+    .team-role {
+        font-size: 0.68rem;
+        margin-bottom: 12px;
+    }
+
+    .social-link {
+        width: 28px;
+        height: 28px;
+    }
+
+    .social-icon {
+        width: 13px;
+        height: 13px;
+    }
+}
